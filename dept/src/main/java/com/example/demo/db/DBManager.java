@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.example.demo.vo.DeptVO;
 
+ 
 public class DBManager {
 	private static SqlSessionFactory factory;
 	static {
@@ -20,7 +22,13 @@ public class DBManager {
 			System.out.println("예외발생:"+e.getMessage());
 		}
 	}
-	
-	
+	public static List<DeptVO> findAll(){
+		List<DeptVO> list = null;
+		
+		SqlSession session= factory.openSession();		
+		list = session.selectList("dept.findAll");
+		session.close();
+		return list;
+	}
 }
 
